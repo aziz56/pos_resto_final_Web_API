@@ -1,0 +1,71 @@
+﻿@model IEnumerable<pos.BLL.DTO.TransactionDataDTO>
+
+<div class="row">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">List Of Article</h1>
+    </div>
+
+    <div class="col-lg-12">
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">List Of Menu</h6>
+            </div>
+            <div class="card-body">
+                @Html.Raw(ViewBag.Message)
+                <form asp-action="Index" method="get" class="form-inline">
+                   @*  <div class="form-group">
+                        <label>Menu</label>
+                        @Html.DropDownListFor("id_menu", new SelectList(Model, "id_menu", "nama_menu","harga_menu"), "All", new { @class = "form-control" })
+                        
+                        <input type="submit" value="Filter" class="btn btn-outline-primary btn-sm" />
+                    </div> *@
+                </form>
+                <br /><br />
+                <a asp-action="Create" class="btn btn-outline-primary btn-sm">Insert New Transaction</a>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>id_penjualan</th>
+                            <th>nama_pelanggan</th>
+                            <th>no_meja</th>
+                            <th>nama_menu</th>
+                            <th>harga_menu</th>
+                            <th>jumlah_pesanan</th>
+                            <th>total_penjualan</th>
+                            <th>amount</th> 
+                           <th>kembalian</th>
+                            <th></th>
+                @*             <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th> *@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id_penjualan</td>
+                                <td>@item.nama_pelanggan</td>
+                                <td>@item.no_meja</td>
+                                <td>@item.nama_menu</td>
+                                <td>@item.harga_menu</td>
+                                <td>@item.jumlah_pesanan</td>
+                                <td>@item.total_penjualan</td>
+                                <td>@item.amount</td> 
+                                <td>@item.kembalian</td>
+                       
+                              @*   <td>@article.IsApproved</td>
+                                <td><img src="~/pics/@article.Pic" width="60" /></td>
+                                <td><a asp-action="Edit" asp-route-id="@article.CategoryID" class="btn btn-warning btn-sm">edit</a></td>
+                                <td><a asp-action="Delete" asp-route-id="@article.CategoryID" class="btn btn-danger btn-sm">delete</a></td> *@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>

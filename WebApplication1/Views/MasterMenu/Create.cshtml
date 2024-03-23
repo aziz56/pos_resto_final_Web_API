@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Add Menu</h1>
+    </div>
+
+    <div class="col-lg-12">
+        <!-- Basic Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Add Menu</h6>
+            </div>
+            <div class="card-body">
+                @Html.Raw(ViewData["message"])
+                <form method="post" action="/MasterMenu/Create">
+                    <div class="form-group">
+                        <label for="nama_menu">Menu Name:</label>
+                        <input type="text" class="form-control" name="nama_menu"
+                               placeholder="Insert Nama Menu" />
+                    </div>
+                    <div class="form-group">
+                        <label for="harga_menu">Menu Price:</label>
+                        <input type="text" class="form-control" name="harga_menu"
+                               placeholder="Insert Harga Menu" />
+                    </div>
+                    <div class="form-group">
+						<label for="deskripsi_menu">Menu Description:</label>
+						<input type="text" class="form-control" name="deskripsi_menu"
+							   placeholder="Insert Deskripsi Menu" /</div>
+                    <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
