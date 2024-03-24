@@ -8,6 +8,8 @@ namespace posServices.Data.Interfaces
 {
     public interface IMasterMenu : ICrudData<MasterMenu>
     {
+        //GetHargaById
+        Task<MasterMenu> GetHargaById(int id);
 
     }
 }

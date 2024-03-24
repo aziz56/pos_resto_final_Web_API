@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using posServices.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using posServices.Data.Interfaces;
 namespace posServices.Data
 {
-    public class MasterMenuData
+    public class MasterMenuData: IMasterMenu
     {
         private readonly AppDbContext _context;
         public MasterMenuData(AppDbContext context)
@@ -82,6 +83,24 @@ namespace posServices.Data
             return menu;
         }
 
+        public async Task<MasterMenu> GetHargaById(int id)
+        {
+            try
+            {
+                var menu = await _context.MasterMenus.FirstOrDefaultAsync(m => m.IdMenu == id);
+                if (menu == null)
+                {
+                    throw new ArgumentException("Menu not found");
+                }
+                return menu;
 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
+        }
     }
 }

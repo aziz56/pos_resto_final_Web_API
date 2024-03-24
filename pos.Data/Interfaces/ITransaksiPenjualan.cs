@@ -10,10 +10,10 @@ namespace posServices.Data.Interfaces
     public interface ITransaksiPenjualan 
     {
         //InsertPenjualan dan InsertDetailPenjualan
-        Task<Task> InsertPenjualan(TransaksiPenjualan transaksiPenjualan, TransaksiDetailPenjualan transaksiDetailPenjualan, MasterMenu masterMenu, MasterPelanggan masterPelanggan);
+        Task InsertPenjualan(string namaPelanggan, List<(int IdMenu, int JumlahPesanan)> pesananList, int idMeja, decimal amount);
         //Task GetAllTransaksiPenjualan
         Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualan();
         //Task GetHargaByNamaMenu
-        Task<MasterMenu> GetHargaByNamaMenu(string namaMenu);
+        Task<decimal> GetHargaMenuById(int idMenu);
     }
 }
