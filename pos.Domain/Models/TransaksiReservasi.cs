@@ -50,4 +50,6 @@ public partial class TransaksiReservasi
     [ForeignKey("IdPelanggan")]
     [InverseProperty("TransaksiReservasis")]
     public virtual MasterPelanggan? IdPelangganNavigation { get; set; }
+
+  
 }

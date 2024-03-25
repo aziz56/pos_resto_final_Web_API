@@ -170,6 +170,102 @@ namespace posServices.Data
                 throw new Exception("Error in GetHargaMenuById: " + ex.Message);
             }
         }
+        //GetAllTransaksiPenjualandanTransaksiDetailPenjualan
+        //public async Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualanAndTransaksiDetailPenjualan()
+        //{
+        //    try
+        //    {
+        //        var transaksiPenjualans = await _context.TransaksiPenjualans.Include<TransaksiDetailPenjualan>
+        //            (t => t.TransaksiDetailPenjualans).ToListAsync();
+
+        //    }
+        //}
+        public async Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualanAndTransaksiDetailPenjualan()
+        {
+            var result = from transaksiPenjualan in _context.TransaksiPenjualans
+                         join transaksiDetailPenjualan in _context.TransaksiDetailPenjualans
+                         on transaksiPenjualan.IdPenjualan equals transaksiDetailPenjualan.IdPenjualan into detailPenjualanGroup
+                         from detailPenjualan in detailPenjualanGroup.DefaultIfEmpty()
+                         join masterPelanggan in _context.MasterPelanggans
+                         on transaksiPenjualan.IdPelanggaan equals masterPelanggan.IdPelanggan into pelangganGroup
+                         from pelanggan in pelangganGroup.DefaultIfEmpty()
+                         join masterMenu in _context.MasterMenus
+                         on detailPenjualan.IdMenu equals masterMenu.IdMenu into menuGroup
+                         from menu in menuGroup.DefaultIfEmpty()
+                         join masterMeja in _context.MasterMejas
+                         on transaksiPenjualan.IdMeja equals masterMeja.IdMeja into mejaGroup
+                         from meja in mejaGroup.DefaultIfEmpty()
+                         select new
+                         {
+                             NamaPelanggan = pelanggan.NamaPelanggan,
+                             TanggalPenjualan = transaksiPenjualan.TanggalPenjualan,
+                             WaktuPenjualan = transaksiPenjualan.WaktuPenjualan,
+                             TotalPenjualan = transaksiPenjualan.TotalPenjualan,
+                             Amount = transaksiPenjualan.Amount,
+                             Kembalian = transaksiPenjualan.Kembalian,
+                             NamaMenu = menu.NamaMenu,
+                             HargaMenu = menu.HargaMenu,
+                             NoMeja = meja.NoMeja
+                         };
+
+            return (IEnumerable<TransaksiPenjualan>)await result.ToListAsync();
+
+        }
+
+        public async Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByPelanggan(string namaPelanggan)
+        {
+            try
+            {
+                var result = from transaksiPenjualan in _context.TransaksiPenjualans
+                             join transaksiDetailPenjualan in _context.TransaksiDetailPenjualans
+                             on transaksiPenjualan.IdPenjualan equals transaksiDetailPenjualan.IdPenjualan into detailPenjualanGroup
+                             from detailPenjualan in detailPenjualanGroup.DefaultIfEmpty()
+                             join masterPelanggan in _context.MasterPelanggans
+                             on transaksiPenjualan.IdPelanggaan equals masterPelanggan.IdPelanggan into pelangganGroup
+                             from pelanggan in pelangganGroup.DefaultIfEmpty()
+                             join masterMenu in _context.MasterMenus
+                             on detailPenjualan.IdMenu equals masterMenu.IdMenu into menuGroup
+                             from menu in menuGroup.DefaultIfEmpty()
+                             join masterMeja in _context.MasterMejas
+                             on transaksiPenjualan.IdMeja equals masterMeja.IdMeja into mejaGroup
+                             from meja in mejaGroup.DefaultIfEmpty()
+                             where pelanggan.NamaPelanggan == namaPelanggan // Gunakan parameter namaPelanggan sebagai filter
+                             select new TransaksiPenjualan // Ubah tipe hasil menjadi TransaksiPenjualan
+                             {
+                                 IdPenjualan = transaksiPenjualan.IdPenjualan,
+                                 TanggalPenjualan = transaksiPenjualan.TanggalPenjualan,
+                                 WaktuPenjualan = transaksiPenjualan.WaktuPenjualan,
+                                 TotalPenjualan = transaksiPenjualan.TotalPenjualan,
+                                 Amount = transaksiPenjualan.Amount,
+                                 Kembalian = transaksiPenjualan.Kembalian,
+                                 IdMejaNavigation = transaksiPenjualan.IdMejaNavigation, // Gunakan navigasi yang telah dimuat
+                                 TransaksiDetailPenjualans = transaksiPenjualan.TransaksiDetailPenjualans // Gunakan detail penjualan yang telah dimuat
+                             };
+
+                return await result.ToListAsync(); // Tambahkan await untuk menjalankan kueri LINQ secara asynchronous
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in GetTransaksiByPelanggan: " + ex.Message);
+            }
+
+        }
+        public async Task<Task> InsertTransaksiReservasi(int IdPelanggan, int IdMeja, DateOnly TanggalReservasi, TimeOnly WaktuReservasi)
+        {
+            try
+            {
+                var insertTransaksi = new TransaksiReservasi()
+                {
+                    IdPelanggan = IdPelanggan,
+                    IdMeja = IdMeja,
+                    TanggalReservasi = (DateTime.)TanggalReservasi,
+                    WaktuReservasi = WaktuReservasi
+                };
+            }
+        }
+
+
     }
 }
 

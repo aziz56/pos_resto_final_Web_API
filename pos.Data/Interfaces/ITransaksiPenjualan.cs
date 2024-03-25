@@ -15,5 +15,8 @@ namespace posServices.Data.Interfaces
         Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualan();
         //Task GetHargaByNamaMenu
         Task<decimal> GetHargaMenuById(int idMenu);
+        Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualanAndTransaksiDetailPenjualan();
+        //GetTransaksiByPelanggan
+        Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByPelanggan(string namaPelanggan);
     }
 }

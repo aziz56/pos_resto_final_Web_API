@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace posServices.BLL
 {
-    internal class TransaksiPenjualanBLL
+    public class TransaksiPenjualanBLL : Interfaces.ITransaksiPenjualanBLL
     {
+
+
     }
 }

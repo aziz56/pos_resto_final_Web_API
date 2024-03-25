@@ -12,10 +12,10 @@ namespace pos.BO
             this.TransaksiReservasis = new List<TransaksiReservasi>();
         }
 
-        public int id_menu { get; set; }
-        public string nama_menu { get; set; }
-        public decimal harga_menu { get; set; }
-        public string deskripsi_menu { get; set; }
+        public int? id_menu { get; set; }
+        public string? nama_menu { get; set; }
+        public decimal? harga_menu { get; set; }
+        public string? deskripsi_menu { get; set; }
 
         public IEnumerable<TransaksiPenjualan> TransaksiPenjualans { get; set; }
         public IEnumerable<TransaksiReservasi> TransaksiReservasis { get; set; }

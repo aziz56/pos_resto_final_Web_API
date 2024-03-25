@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using pos.BLL;
+using pos.BLL.DTO;
 using Microsoft.AspNetCore.Mvc;
+using pos.BLL.Interface;
 
 namespace WebApplication2.Controllers
 {
@@ -8,15 +10,42 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class MasterMenuController : ControllerBase
     {
-        private readonly MasterMenuBLL _masterMenuBLL;
-        [Route("api/[controller]")]
-
-        [HttpGet]
-        public IActionResult GetAll()
+        private readonly IMasterMenuBLL _masterMenuBLL;
+        public MasterMenuController(IMasterMenuBLL masterMenuBLL)
         {
-            var data = _masterMenuBLL.GetAll();
-            return Ok(data);
+            _masterMenuBLL = masterMenuBLL;
         }
+     
+        [HttpGet]
+        // GET: MasterMenuController
+        public IActionResult GetallMenu()
+        {
+          
+            return Ok(_masterMenuBLL.GetAll());
+        }
+   
+      
+        [HttpPost]
+        // POST: MasterMenuController/Create
+        public IActionResult Create([FromBody] MasterMenuDTO masterMenuDTO)
+        {
+            _masterMenuBLL.Insert(masterMenuDTO);
+            return Ok();
+        }
+        [HttpPut("{id}")]
+        // PUT: MasterMenuController/Edit/5
+        public IActionResult Edit([FromBody] MasterMenuDTO masterMenuDTO)
+        {
+            _masterMenuBLL.Update(masterMenuDTO);
+            return Ok();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _masterMenuBLL.Delete(id);
+            return Ok();
+        }
+
             
 
     }

@@ -40,21 +40,28 @@ namespace pos.BLL
 
         public IEnumerable<MasterMenuDTO> GetAll()
         {
-            List<MasterMenuDTO> masterMenuDTOs = new List<MasterMenuDTO>();
-            var masterMenu = _masterMenuDAL.GetAll();
-            foreach (var item in masterMenu)
+            try
             {
-                masterMenuDTOs.Add(new MasterMenuDTO
+                List<MasterMenuDTO> masterMenuDTOs = new List<MasterMenuDTO>();
+                var masterMenu = _masterMenuDAL.GetAll();
+                foreach (var item in masterMenu)
                 {
-                    id_menu = item.id_menu,
-                    nama_menu = item.nama_menu,
-                    harga_menu = item.harga_menu,
-                    deskripsi_menu = item.deskripsi_menu
+                    masterMenuDTOs.Add(new MasterMenuDTO
+                    {
+                        id_menu = item.id_menu,
+                        nama_menu = item.nama_menu,
+                        harga_menu = item.harga_menu,
+                        deskripsi_menu = item.deskripsi_menu
 
-                });
+                    });
 
+                }
+                return masterMenuDTOs;
             }
-            return masterMenuDTOs;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
             
         }
