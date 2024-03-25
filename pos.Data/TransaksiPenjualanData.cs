@@ -250,18 +250,22 @@ namespace posServices.Data
                 throw new Exception("Error in GetTransaksiByPelanggan: " + ex.Message);
             }
 
-        }
-        public async Task<Task> InsertTransaksiReservasi(int IdPelanggan, int IdMeja, DateOnly TanggalReservasi, TimeOnly WaktuReservasi)
+        }  
+        public async Task<Task> InsertTransaksiReservasi(int IdPelanggan, int IdMeja, DateTime TanggalReservasi, TimeOnly JamReservasi)
         {
             try
             {
                 var insertTransaksi = new TransaksiReservasi()
                 {
                     IdPelanggan = IdPelanggan,
-                    IdMeja = IdMeja,
-                    TanggalReservasi = (DateTime.)TanggalReservasi,
-                    WaktuReservasi = WaktuReservasi
+                    TanggalReservasi = TanggalReservasi,
+                    JamReservasi = JamReservasi
+
+                   
                 };
+                _context.TransaksiReservasis.Add(insertTransaksi);
+                await _context.SaveChangesAsync();
+            
             }
         }
 

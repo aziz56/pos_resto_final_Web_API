@@ -51,5 +51,5 @@ public partial class TransaksiReservasi
     [InverseProperty("TransaksiReservasis")]
     public virtual MasterPelanggan? IdPelangganNavigation { get; set; }
 
-  
+
 }
