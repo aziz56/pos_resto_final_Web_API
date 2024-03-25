@@ -8,6 +8,6 @@ namespace posServices.BLL.Interfaces
 {
     public interface IMasterMenuBLL
     {
-
+        
     }
 }

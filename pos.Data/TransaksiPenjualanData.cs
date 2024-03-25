@@ -15,17 +15,14 @@ namespace posServices.Data
     public class TransaksiPenjualanData : ITransaksiPenjualan
     {
         private readonly AppDbContext _context;
-
         public TransaksiPenjualanData(AppDbContext context)
         {
             _context = context;
         }
-
         public Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualan()
         {
             throw new NotImplementedException();
         }
-
         public Task<MasterMenu> GetHargaByNamaMenu(string namaMenu)
         {
             throw new NotImplementedException();
@@ -116,7 +113,6 @@ namespace posServices.Data
                 });
 
                 decimal kembalian = amount - totalPenjualan;
-
                 // Buat objek TransaksiPenjualan
                 var transaksiPenjualan = new TransaksiPenjualan
                 {
@@ -251,21 +247,53 @@ namespace posServices.Data
             }
 
         }  
-        public async Task<Task> InsertTransaksiReservasi(int IdPelanggan, int IdMeja, DateTime TanggalReservasi, TimeOnly JamReservasi)
+        public async Task<Task> InsertTransaksiReservasi(string NamaPelanggan, int IdMeja, DateTime TanggalReservasi, TimeOnly JamReservasi)
         {
             try
             {
                 var insertTransaksi = new TransaksiReservasi()
                 {
-                    IdPelanggan = IdPelanggan,
-                    TanggalReservasi = TanggalReservasi,
-                    JamReservasi = JamReservasi
-
                    
+                    TanggalReservasi = TanggalReservasi,
+                    JamReservasi = JamReservasi,
+                    IdMeja = IdMeja,
+                    IdPelangganNavigation = new MasterPelanggan { NamaPelanggan = NamaPelanggan }
                 };
                 _context.TransaksiReservasis.Add(insertTransaksi);
                 await _context.SaveChangesAsync();
+                return Task.CompletedTask;
             
+            }
+            catch(Exception ex) 
+            {
+                throw new Exception("Error in GetTransaksiPenjualan: " + ex.Message);
+            }
+            
+        }
+        //get
+        public async Task<List<(TransaksiReservasi transaksiReservasi, string namaPelanggan)>> GetAllTransaksiReservasi()
+        {
+            try
+            {
+                // Mengambil semua transaksi reservasi dan nama pelanggan yang terkait dari basis data
+                var transaksiReservasiList = await _context.TransaksiReservasis
+                    .Join(
+                        _context.MasterPelanggans, // Tabel MasterPelanggans
+                        tr => tr.IdPelanggan, // Kolom yang menjadi kunci asing di TransaksiReservasi
+                        mp => mp.IdPelanggan, // Kolom yang menjadi kunci primer di MasterPelanggans
+                        (tr, mp) => new { TransaksiReservasi = tr, NamaPelanggan = mp.NamaPelanggan } // Seleksi hasil join
+                    )
+                    .Select(result => (result.TransaksiReservasi, result.NamaPelanggan))
+                    .ToListAsync();
+
+                // Konversi hasil join ke dalam tipe yang diinginkan
+                var resultList = transaksiReservasiList.Select(x => (x.TransaksiReservasi, x.NamaPelanggan)).ToList();
+
+                return resultList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in GetAllTransaksiReservasi: " + ex.Message);
             }
         }
 
