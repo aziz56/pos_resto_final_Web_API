@@ -15,6 +15,7 @@ namespace pos.BLL.Interface
         UserDTO LoginMVC(LoginDTO loginDTO);
         UserDTO GetUserWithRoles(string username);
         IEnumerable<UserDTO> GetAllWithRoles();
+        UserDTO LoginWithToken(LoginDTO loginDTO);
        
 
     }

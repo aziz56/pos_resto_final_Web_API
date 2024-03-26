@@ -160,6 +160,7 @@ namespace pos.BLL
                 usersDTO.Add(new UserDTO
                 {
                     Username = user.Username,
+                    Password = user.Password,
                     Roles = lstRolesDto
                 });
             }
@@ -218,11 +219,35 @@ namespace pos.BLL
                 usersDTO.Add(new UserDTO
                 {
                     Username = user.Username,
+                    
+                
 
                 });
             }
             return usersDTO;
 
+        }
+
+        public UserDTO LoginWithToken(LoginDTO loginDTO)
+        {
+            var result = _userDAL.Login(loginDTO.Username, loginDTO.Password);
+            var lstRolesDto = new List<RoleDTO>();
+            var roles = result.Roles;
+            foreach (var role in roles)
+            {
+                lstRolesDto.Add(new RoleDTO
+                {
+                    RoleID = role.RoleID,
+                    RoleName = role.RoleName
+                });
+            }
+
+            UserDTO userDTO = new UserDTO
+            {
+                Username = result.Username,
+                Roles = lstRolesDto
+            };
+            return userDTO;
         }
     }
     }

@@ -18,5 +18,7 @@ namespace posServices.Data.Interfaces
         Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualanAndTransaksiDetailPenjualan();
         //GetTransaksiByPelanggan
         Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByPelanggan(string namaPelanggan);
+        Task<Task> InsertTransaksiReservasi(string NamaPelanggan, int IdMeja, DateTime TanggalReservasi, TimeOnly JamReservasi);
+
     }
 }

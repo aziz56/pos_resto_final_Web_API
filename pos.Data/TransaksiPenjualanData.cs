@@ -282,9 +282,7 @@ namespace posServices.Data
                         tr => tr.IdPelanggan, // Kolom yang menjadi kunci asing di TransaksiReservasi
                         mp => mp.IdPelanggan, // Kolom yang menjadi kunci primer di MasterPelanggans
                         (tr, mp) => new { TransaksiReservasi = tr, NamaPelanggan = mp.NamaPelanggan } // Seleksi hasil join
-                    )
-                    .Select(result => (result.TransaksiReservasi, result.NamaPelanggan))
-                    .ToListAsync();
+                    ).ToListAsync();
 
                 // Konversi hasil join ke dalam tipe yang diinginkan
                 var resultList = transaksiReservasiList.Select(x => (x.TransaksiReservasi, x.NamaPelanggan)).ToList();

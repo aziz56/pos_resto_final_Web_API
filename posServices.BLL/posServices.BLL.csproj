@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Profiles\" />
+    <ProjectReference Include="..\pos.Data\posServices.Data.csproj" />
   </ItemGroup>
 
 </Project>

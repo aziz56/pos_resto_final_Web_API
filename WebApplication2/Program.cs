@@ -15,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IMasterMenuBLL, MasterMenuBLL>();
 builder.Services.AddScoped<ITransaksiBLL, TransaksiBLL>();
+builder.Services.AddScoped<IUserBLL, UserBLL>();
+builder.Services.AddScoped<IRoleBLL, RoleBLL>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -60,8 +62,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseHttpsRedirection();
 //app.UseSession();
 

@@ -2,7 +2,5 @@
 
 namespace pos.DAL
 {
-    public class c
-    {
-    }
+
 }

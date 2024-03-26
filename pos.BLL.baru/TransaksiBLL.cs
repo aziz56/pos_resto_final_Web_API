@@ -27,6 +27,7 @@ namespace pos.BLL
                 amount = transactionCreateDTO.amount,
                 id_menu = transactionCreateDTO.id_menu,
                 id_meja =transactionCreateDTO.id_meja
+
             });            
         }
         public MasterMenuDTO GetHargaByMenu(MasterMenuDTO masterMenuDTO)

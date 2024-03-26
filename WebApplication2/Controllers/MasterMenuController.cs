@@ -3,9 +3,11 @@ using pos.BLL;
 using pos.BLL.DTO;
 using Microsoft.AspNetCore.Mvc;
 using pos.BLL.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication2.Controllers
 {
+    [Authorize(Roles = "Owner")]
     [Route("api/[controller]")]
     [ApiController]
     public class MasterMenuController : ControllerBase

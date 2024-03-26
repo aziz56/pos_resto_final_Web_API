@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using pos.BLL;
 using pos.BLL.DTO;
@@ -6,6 +7,7 @@ using pos.BLL.Interface;
 
 namespace WebApplication2.Controllers
 {
+    //[Authorize(Roles="Kasir,Owner")]
     [Route("api/[controller]")]
     [ApiController]
     public class TransaksiController : ControllerBase

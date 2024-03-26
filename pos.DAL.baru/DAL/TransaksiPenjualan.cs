@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using pos.DAL.Interface;
 using Dapper;
 using pos.BO;
+using System.Data;
 
 namespace pos.DAL.DAL
 {
@@ -20,21 +21,25 @@ namespace pos.DAL.DAL
         {
             using (SqlConnection conn = new SqlConnection(GetConnectionString()))
             {
-                string strSql = @"sp_penjualan";
-                var param = new
-                {
-                    nama_pelanggan = transactionData.nama_pelanggan,
-                    jumlah_pesanan = transactionData.jumlah_pesanan,
-                    harga_menu = transactionData.harga_menu,
-                    amount =transactionData.amount,
-                    id_menu = transactionData.id_menu,
-                    id_meja = transactionData.id_meja
-                };
-                conn.Execute(strSql, param, commandType: System.Data.CommandType.StoredProcedure);
+                string strSql = "sp_Penjualan";
+                var param = new DynamicParameters();
+                param.Add("@nama_pelanggan", transactionData.nama_pelanggan);
+                param.Add("@jumlah_pesanan", transactionData.jumlah_pesanan);
+                param.Add("@harga_menu", transactionData.harga_menu);
+                param.Add("@amount", transactionData.amount);
+                param.Add("@id_menu", transactionData.id_menu);
+                param.Add("@id_meja", transactionData.id_meja);
+                param.Add("@id_penjualan", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                conn.Execute(strSql, param, commandType: CommandType.StoredProcedure);
+
+                // Retrieve the value of the output parameter
+                int id_penjualan = param.Get<int>("@id_penjualan");
+                // Use the idPenjualan value as needed
             }
         }
-      
-       public MasterMenu GetHargaByMenu(BO.MasterMenu masterMenu)
+
+        public MasterMenu GetHargaByMenu(BO.MasterMenu masterMenu)
         {
             using SqlConnection conn = new SqlConnection(GetConnectionString());
             string strSql = @"select harga_menu from MasterMenu where id_menu = @id_menu";
