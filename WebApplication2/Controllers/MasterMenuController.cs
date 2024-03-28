@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication2.Controllers
 {
-    [Authorize(Roles = "Owner")]
+    //[Authorize(Roles = "Owner")]
     [Route("api/[controller]")]
     [ApiController]
     public class MasterMenuController : ControllerBase

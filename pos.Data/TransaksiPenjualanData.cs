@@ -149,12 +149,18 @@ namespace posServices.Data
                 throw new Exception("Error in InsertPenjualan: " + ex.Message);
             }
         }
+        //GetTransaksiByNamaPelanggan
+        //public async Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByNamaPelanggan(string namaPelanggan)
+        //{
+
+        //}
 
         public async Task<decimal> GetHargaMenuById(int idMenu)
         {
             try
             {
                 var menu = await _context.MasterMenus.FirstOrDefaultAsync(m => m.IdMenu == idMenu);
+
                 if (menu == null)
                 {
                     throw new ArgumentException("Menu not found");
