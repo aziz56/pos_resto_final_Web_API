@@ -23,11 +23,40 @@ namespace posServices.Data
         {
             throw new NotImplementedException();
         }
-        public Task<MasterMenu> GetHargaByNamaMenu(string namaMenu)
-        {
-            throw new NotImplementedException();
-        }
+        //public Task<MasterMenu> GetHargaByNamaMenu(string namaMenu)
+        //{
+        //    var menu = _context.MasterMenus.FirstOrDefaultAsync(m => m.NamaMenu == namaMenu);
+        //    return menu;
+            
+        //}
+        //
+        //GetTransaksiByPelanggan
+        //public async Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByPelanggan(string namaPelanggan)
+        //{
+        //    try
+        //    {
+        //        var getTransaksi = from transaksiPenjualan in _context.TransaksiPenjualans
+        //                           join transaksiDetailPenjualan in _context.TransaksiDetailPenjualans
+        //                           on transaksiPenjualan
+        //                           .IdPenjualan equals transaksiDetailPenjualan.IdPenjualan into detailPenjualanGroup
+        //                           from detailPenjualan in detailPenjualanGroup.DefaultIfEmpty()
+        //                           join masterPelanggan in _context.MasterPelanggans
+        //                           on transaksiPenjualan.IdPelanggaan equals masterPelanggan.IdPelanggan into pelangganGroup
+        //                           from pelanggan in pelangganGroup.DefaultIfEmpty()
+        //                           join masterMenu in _context.MasterMenus
+        //                           on detailPenjualan.IdMenu equals masterMenu.IdMenu into menuGroup
+        //                           from menu in menuGroup.DefaultIfEmpty()
+        //                           join masterMeja in _context.MasterMejas
+        //                           on transaksiPenjualan.IdMeja equals masterMeja.IdMeja into mejaGroup
+        //                           from meja in mejaGroup.DefaultIfEmpty()
+        //                              where pelanggan.NamaPelanggan == namaPelanggan
+        //                              select new TransaksiPenjualan
+        //                              {
 
+                                      
+        //                              }
+        //    }
+        //}
         //public async Task<Task> InsertPenjualan(TransaksiPenjualan transaksiPenjualan, TransaksiDetailPenjualan transaksiDetailPenjualan, MasterMenu masterMenu, MasterPelanggan masterPelanggan)
         //{
 
@@ -111,7 +140,6 @@ namespace posServices.Data
                     var hargaMenu = GetHargaMenuById(pesanan.IdMenu).Result; // Menunggu hasil GetHargaMenuById
                     return pesanan.JumlahPesanan * hargaMenu;
                 });
-
                 decimal kembalian = amount - totalPenjualan;
                 // Buat objek TransaksiPenjualan
                 var transaksiPenjualan = new TransaksiPenjualan
@@ -124,11 +152,9 @@ namespace posServices.Data
                     IdMeja = idMeja, // Atur meja yang sesuai
                     IdPelanggaanNavigation = new MasterPelanggan { NamaPelanggan = namaPelanggan } // Buat objek pelanggan baru
                 };
-
                 // Tambahkan transaksiPenjualan ke dalam konteks
                 _context.TransaksiPenjualans.Add(transaksiPenjualan);
                 await _context.SaveChangesAsync(); // Simpan transaksiPenjualan agar mendapatkan IdPenjualan yang baru saja dimasukkan
-
                 // Tambahkan setiap item pesanan ke TransaksiDetailPenjualan
                 foreach (var pesanan in pesananList)
                 {
@@ -138,7 +164,6 @@ namespace posServices.Data
                         JumlahPesasan = pesanan.JumlahPesanan,
                         IdPenjualan = transaksiPenjualan.IdPenjualan // Gunakan IdPenjualan yang baru saja dimasukkan
                     };
-
                     // Tambahkan transaksiDetailPenjualan ke dalam konteks
                     _context.TransaksiDetailPenjualans.Add(transaksiDetailPenjualan);
                 }
@@ -172,6 +197,7 @@ namespace posServices.Data
                 throw new Exception("Error in GetHargaMenuById: " + ex.Message);
             }
         }
+        
         //GetAllTransaksiPenjualandanTransaksiDetailPenjualan
         //public async Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualanAndTransaksiDetailPenjualan()
         //{
@@ -266,6 +292,10 @@ namespace posServices.Data
                     IdPelangganNavigation = new MasterPelanggan { NamaPelanggan = NamaPelanggan }
                 };
                 _context.TransaksiReservasis.Add(insertTransaksi);
+                foreach (var item in insertTransaksi)
+                {
+
+                }
                 await _context.SaveChangesAsync();
                 return Task.CompletedTask;
             
@@ -300,6 +330,7 @@ namespace posServices.Data
                 throw new Exception("Error in GetAllTransaksiReservasi: " + ex.Message);
             }
         }
+
 
 
     }
