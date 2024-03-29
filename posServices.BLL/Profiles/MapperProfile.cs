@@ -12,14 +12,14 @@ namespace posServices.BLL.Profiles
 {
     public class MapperProfile : Profile
     {
-        public MapperProfile()
-        {
-            CreateMap<TransaksiReservasi, TransaksiReservasiDTO>()
-                        .ForMember(dest => dest.NamaPelanggan, opt => opt.MapFrom(src => src.IdPelangganNavigation.NamaPelanggan))
-                        .ForMember(dest => dest.TanggalReservasi, opt => opt.MapFrom(src => src.TanggalReservasi))
-                        .ForMember(dest => dest.JamReservasi, opt => opt.MapFrom(src => src.JamReservasi))
-                        .ForMember(dest => dest.DetailReservasi, opt => opt.MapFrom(src => src.Transa));
-        }
+        //public MapperProfile()
+        //{
+        //    CreateMap<TransaksiReservasi, TransaksiReservasiDTO>()
+        //                .ForMember(dest => dest.NamaPelanggan, opt => opt.MapFrom(src => src.IdPelangganNavigation.NamaPelanggan))
+        //                .ForMember(dest => dest.TanggalReservasi, opt => opt.MapFrom(src => src.TanggalReservasi))
+        //                .ForMember(dest => dest.JamReservasi, opt => opt.MapFrom(src => src.JamReservasi))
+        //                .ForMember(dest => dest.DetailReservasi, opt => opt.MapFrom(src => src.Transa));
+        //}
 
 
 
@@ -30,4 +30,4 @@ namespace posServices.BLL.Profiles
 
     }
     }
-}
+

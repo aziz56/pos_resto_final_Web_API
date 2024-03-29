@@ -24,7 +24,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\pos.BLL.baru\pos.BLL.csproj" />
+    <ProjectReference Include="..\pos.Data\posServices.Data.csproj" />
     <ProjectReference Include="..\pos.Domain\posServices.Domain.csproj" />
+    <ProjectReference Include="..\posServices.BLL\posServices.BLL.csproj" />
   </ItemGroup>
 
 </Project>

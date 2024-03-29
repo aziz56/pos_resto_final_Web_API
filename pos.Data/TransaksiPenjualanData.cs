@@ -25,113 +25,6 @@ namespace posServices.Data
         {
             throw new NotImplementedException();
         }
-        //public Task<MasterMenu> GetHargaByNamaMenu(string namaMenu)
-        //{
-        //    var menu = _context.MasterMenus.FirstOrDefaultAsync(m => m.NamaMenu == namaMenu);
-        //    return menu;
-
-        //}
-        //
-        //GetTransaksiByPelanggan
-        //public async Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByPelanggan(string namaPelanggan)
-        //{
-        //    try
-        //    {
-        //        var getTransaksi = from transaksiPenjualan in _context.TransaksiPenjualans
-        //                           join transaksiDetailPenjualan in _context.TransaksiDetailPenjualans
-        //                           on transaksiPenjualan
-        //                           .IdPenjualan equals transaksiDetailPenjualan.IdPenjualan into detailPenjualanGroup
-        //                           from detailPenjualan in detailPenjualanGroup.DefaultIfEmpty()
-        //                           join masterPelanggan in _context.MasterPelanggans
-        //                           on transaksiPenjualan.IdPelanggaan equals masterPelanggan.IdPelanggan into pelangganGroup
-        //                           from pelanggan in pelangganGroup.DefaultIfEmpty()
-        //                           join masterMenu in _context.MasterMenus
-        //                           on detailPenjualan.IdMenu equals masterMenu.IdMenu into menuGroup
-        //                           from menu in menuGroup.DefaultIfEmpty()
-        //                           join masterMeja in _context.MasterMejas
-        //                           on transaksiPenjualan.IdMeja equals masterMeja.IdMeja into mejaGroup
-        //                           from meja in mejaGroup.DefaultIfEmpty()
-        //                              where pelanggan.NamaPelanggan == namaPelanggan
-        //                              select new TransaksiPenjualan
-        //                              {
-
-
-        //                              }
-        //    }
-        //}
-        //public async Task<Task> InsertPenjualan(TransaksiPenjualan transaksiPenjualan, TransaksiDetailPenjualan transaksiDetailPenjualan, MasterMenu masterMenu, MasterPelanggan masterPelanggan)
-        //{
-
-        //    var Penjualan = new TransaksiPenjualan
-        //    {
-        //        TanggalPenjualan = transaksiPenjualan.TanggalPenjualan = DateOnly.FromDateTime(DateTime.Now),
-        //        TotalPenjualan = transaksiPenjualan.TotalPenjualan = SUM(transaksiDetailPenjualan.HargaMenu * transaksiDetailPenjualan.JumlahPesasan),
-        //        WaktuPenjualan = transaksiPenjualan.WaktuPenjualan = TimeOnly.FromDateTime(DateTime.Now),
-        //        Kembalian = transaksiPenjualan.Kembalian = transaksiPenjualan.Amount - transaksiPenjualan.TotalPenjualan,
-        //        Amount = transaksiPenjualan.Amount,
-        //        IdPelanggaan = transaksiPenjualan.IdPelanggaan = masterPelanggan.IdPelanggan,
-
-        //    };
-        //    List<TransaksiDetailPenjualan> detailPenjualanBaru = new List<TransaksiDetailPenjualan>();
-
-        //    foreach (var item in detailPenjualanBaru)
-        //    {
-        //        TransaksiDetailPenjualan detailBaru = new TransaksiDetailPenjualan
-        //        {
-        //            IdMenu = item.IdMenu,
-
-        //            HargaMenu = masterMenu.HargaMenu,
-        //            JumlahPesasan = item.JumlahPesasan
-        //        };
-
-        //        detailPenjualanBaru.Add(detailBaru);
-        //    }
-        //    await using var context = new AppDbContext();
-        //    context.Database.EnsureCreated();
-        //    context.SaveChanges();
-        //    return Task.FromResult(Task.CompletedTask);
-
-
-
-
-        //}
-        //public async Task InsertPenjualan(string namaPelanggan, List<(int IdMenu, int JumlahPesanan)> pesananList, int idMeja, decimal amount)
-        //{
-        //    // Hitung total penjualan dan kembalian
-        //    decimal totalPenjualan = pesananList.Sum(pesanan => pesanan.JumlahPesanan * MasterMenu.(m => m.IdMenu == idMenu);
-        //    decimal kembalian = amount - totalPenjualan;
-
-        //    // Buat objek TransaksiPenjualan
-        //    var transaksiPenjualan = new TransaksiPenjualan
-        //    {
-        //        TanggalPenjualan = DateOnly.FromDateTime(DateTime.Now),
-        //        WaktuPenjualan = TimeOnly.FromDateTime(DateTime.Now),
-        //        Amount = amount,
-        //        TotalPenjualan = totalPenjualan,
-        //        Kembalian = kembalian,
-        //        IdMeja = idMeja, // Atur meja yang sesuai
-        //        IdPelanggaanNavigation = new MasterPelanggan { NamaPelanggan = namaPelanggan } // Buat objek pelanggan baru
-        //    };
-
-        //    // Tambahkan transaksiPenjualan ke dalam konteks
-        //    _context.TransaksiPenjualans.Add(transaksiPenjualan);
-        //    await _context.SaveChangesAsync(); // Simpan transaksiPenjualan agar mendapatkan IdPenjualan yang baru saja dimasukkan
-
-        //    // Tambahkan setiap item pesanan ke TransaksiDetailPenjualan
-        //    foreach (var pesanan in pesananList)
-        //    {
-        //        var transaksiDetailPenjualan = new TransaksiDetailPenjualan
-        //        {
-        //            IdMenu = pesanan.IdMenu,
-        //            JumlahPesasan = pesanan.JumlahPesanan,
-        //            IdPenjualan = transaksiPenjualan.IdPenjualan // Gunakan IdPenjualan yang baru saja dimasukkan
-        //        };
-
-        //        // Tambahkan transaksiDetailPenjualan ke dalam konteks
-        //        _context.TransaksiDetailPenjualans.Add(transaksiDetailPenjualan);
-        //    }
-        //    await _context.SaveChangesAsync();
-        //}
         public async Task InsertPenjualan(string namaPelanggan, List<(int IdMenu, int JumlahPesanan)> pesananList, int idMeja, decimal amount)
         {
             try
@@ -176,11 +69,8 @@ namespace posServices.Data
                 throw new Exception("Error in InsertPenjualan: " + ex.Message);
             }
         }
-        //GetTransaksiByNamaPelanggan
-        //public async Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByNamaPelanggan(string namaPelanggan)
-        //{
-
-        //}
+        //InsertTransaksiPenjualanWithTransaksiDetailPenjualan
+ 
 
         public async Task<decimal> GetHargaMenuById(int idMenu)
         {
@@ -200,47 +90,47 @@ namespace posServices.Data
             }
         }
 
-        //GetAllTransaksiPenjualandanTransaksiDetailPenjualan
-        //public async Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualanAndTransaksiDetailPenjualan()
-        //{
-        //    try
-        //    {
-        //        var transaksiPenjualans = await _context.TransaksiPenjualans.Include<TransaksiDetailPenjualan>
-        //            (t => t.TransaksiDetailPenjualans).ToListAsync();
-
-        //    }
-        //}
         public async Task<IEnumerable<TransaksiPenjualan>> GetAllTransaksiPenjualanAndTransaksiDetailPenjualan()
         {
-            var result = from transaksiPenjualan in _context.TransaksiPenjualans
-                         join transaksiDetailPenjualan in _context.TransaksiDetailPenjualans
-                         on transaksiPenjualan.IdPenjualan equals transaksiDetailPenjualan.IdPenjualan into detailPenjualanGroup
-                         from detailPenjualan in detailPenjualanGroup.DefaultIfEmpty()
-                         join masterPelanggan in _context.MasterPelanggans
-                         on transaksiPenjualan.IdPelanggaan equals masterPelanggan.IdPelanggan into pelangganGroup
-                         from pelanggan in pelangganGroup.DefaultIfEmpty()
-                         join masterMenu in _context.MasterMenus
-                         on detailPenjualan.IdMenu equals masterMenu.IdMenu into menuGroup
-                         from menu in menuGroup.DefaultIfEmpty()
-                         join masterMeja in _context.MasterMejas
-                         on transaksiPenjualan.IdMeja equals masterMeja.IdMeja into mejaGroup
-                         from meja in mejaGroup.DefaultIfEmpty()
-                         select new
-                         {
-                             NamaPelanggan = pelanggan.NamaPelanggan,
-                             TanggalPenjualan = transaksiPenjualan.TanggalPenjualan,
-                             WaktuPenjualan = transaksiPenjualan.WaktuPenjualan,
-                             TotalPenjualan = transaksiPenjualan.TotalPenjualan,
-                             Amount = transaksiPenjualan.Amount,
-                             Kembalian = transaksiPenjualan.Kembalian,
-                             NamaMenu = menu.NamaMenu,
-                             HargaMenu = menu.HargaMenu,
-                             NoMeja = meja.NoMeja
-                         };
+            var result = await _context.TransaksiPenjualans
+                .Join(
+                    _context.TransaksiDetailPenjualans,
+                    transaksiPenjualan => transaksiPenjualan.IdPenjualan,
+                    transaksiDetailPenjualan => transaksiDetailPenjualan.IdPenjualan,
+                    (transaksiPenjualan, transaksiDetailPenjualan) => new { transaksiPenjualan, transaksiDetailPenjualan }
+                )
+                .ToListAsync();
 
-            return (IEnumerable<TransaksiPenjualan>)await result.ToListAsync();
+            // Now you have a collection of anonymous objects with properties transaksiPenjualan and transaksiDetailPenjualan
+            // You can map these to your TransaksiPenjualan DTO
 
+            // For example, if you have a mapping logic, you can do something like this:
+            var mappedResult = result.Select(item => new TransaksiPenjualan
+            {
+                // Map properties from transaksiPenjualan
+                IdPenjualan = item.transaksiPenjualan.IdPenjualan,
+                TanggalPenjualan = item.transaksiPenjualan.TanggalPenjualan,
+                WaktuPenjualan = item.transaksiPenjualan.WaktuPenjualan,
+                TotalPenjualan = item.transaksiPenjualan.TotalPenjualan,
+                Kembalian = item.transaksiPenjualan.Kembalian,
+                //GetNamaPelangganByID
+                IdPelanggaanNavigation = new MasterPelanggan { NamaPelanggan = item.transaksiPenjualan.IdPelanggaanNavigation.NamaPelanggan },
+                TransaksiDetailPenjualans = new List<TransaksiDetailPenjualan> // Create a new list
+        {
+            new TransaksiDetailPenjualan
+            {
+                //GetNamaMenuByID
+                IdMenuNavigation = new MasterMenu { NamaMenu = item.transaksiDetailPenjualan.IdMenuNavigation.NamaMenu },
+                JumlahPesasan = item.transaksiDetailPenjualan.JumlahPesasan,
+                HargaMenu = item.transaksiDetailPenjualan.HargaMenu
+            }
         }
+            });
+
+            return mappedResult;
+        }
+
+
 
         public async Task<IEnumerable<TransaksiPenjualan>> GetTransaksiByPelanggan(string namaPelanggan)
         {
@@ -281,6 +171,7 @@ namespace posServices.Data
             }
 
         }
+        
         //InsertTransaksiReservasiWithTransaksiDetailReservasi
         //public async Task<>
         public async Task<Task> InsertTransaksiReservasi(List<TransaksiDetailReservasi> detailReservasi, string NamaPelanggan, DateTime TanggalReservasi, TimeOnly JamReservasi)
@@ -465,24 +356,6 @@ namespace posServices.Data
                 throw new Exception("Error in GetTotalBalanceByDate: " + ex.Message);
             }
         }
-        //CreateInvoice
-        //public async Task<Task> CreateInvoice(string namaPelanggan, List<(int IdMenu, int JumlahPesanan)> pesananList, int idMeja, decimal amount)
-        //{
-        //    try
-        //    {
-        //        // Hitung total penjualan dan kembalian menggunakan LINQ
-        //        decimal totalPenjualan = pesananList.Sum(pesanan =>
-        //        {
-        //            var hargaMenu = GetHargaMenuById(pesanan)
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //           throw new Exception("Error in CreateInvoice: " + ex.Message);
-        //    }
-        //}
-
-        //
         public async Task InsertPenjualanWithInvoice(string namaPelanggan, List<(int IdMenu, int JumlahPesanan)> pesananList, int idMeja, decimal amount)
         {
             try
@@ -539,7 +412,7 @@ namespace posServices.Data
                 SmtpClient SmtpServer = new SmtpClient("smtp.example.com");
 
                 mail.From = new MailAddress("aziz.abdulaziz99@gmail.com");
-                mail.To.Add("akhmad.aini");
+                mail.To.Add("akhmad.aini99@gmail.com");
                 mail.Subject = "Invoice Pembelian";
                 mail.Body = $"Terlampir adalah invoice untuk transaksi dengan ID: {transaksiPenjualan.IdPenjualan}. Total pembelian: {transaksiPenjualan.TotalPenjualan}";
 
@@ -558,7 +431,10 @@ namespace posServices.Data
             }
         }
 
-
+        public Task<Task> InsertTransaksiReservasi(string NamaPelanggan, int IdMeja, DateTime TanggalReservasi, TimeOnly JamReservasi)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

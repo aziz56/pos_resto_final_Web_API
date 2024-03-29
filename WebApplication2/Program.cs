@@ -5,8 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 using posServices.Domain.Models;
 using WebApplication2.Helpers;
 using pos.BLL.Interface;
+using posServices.Data;
+using posServices.Data.Interfaces;
 using pos.BLL;
 using Microsoft.AspNetCore.Builder;
+using posServices.BLL;
+using posServices.BLL.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IMasterMenuBLL, MasterMenuBLL>();
 builder.Services.AddScoped<ITransaksiBLL, TransaksiBLL>();
+builder.Services.AddScoped<ITransaksiPenjualanBLL, TransaksiPenjualanBLL>();
+builder.Services.AddScoped<ITransaksiPenjualan, TransaksiPenjualanData>();
 builder.Services.AddScoped<IUserBLL, UserBLL>();
 builder.Services.AddScoped<IRoleBLL, RoleBLL>();
 

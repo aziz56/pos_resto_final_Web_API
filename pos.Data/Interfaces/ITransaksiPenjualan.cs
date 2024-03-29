@@ -22,6 +22,7 @@ namespace posServices.Data.Interfaces
         Task<Task> InsertTransaksiReservasi(List<TransaksiDetailReservasi> detailReservasi, string NamaPelanggan, DateTime TanggalReservasi, TimeOnly JamReservasi);
         Task<List<(TransaksiReservasi transaksiReservasi, string namaPelanggan)>> GetAllTransaksiReservasi();
         Task<int> GetCountTotalTransaction();
+        Task<decimal> GetTotalBalance();
         Task<int> GetCountTotalTransactionByDate(DateOnly date);
         Task<IEnumerable<(string NamaMenu, int JumlahPesanan)>> GetTop5MenuByTransaction();
         Task<decimal> GetTotalTransactionByMenu(string namaMenu);

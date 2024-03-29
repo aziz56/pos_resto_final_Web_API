@@ -13,4 +13,4 @@ namespace posServices.BLL.DTOs
         public string NamaPelanggan { get; set; }
     }
 }
-}
+
