@@ -9,6 +9,8 @@ namespace posServices.BLL.DTOs
 {
     public class ReservasiDTO
     {
-        public List<(TransaksiReservasi transaksiReservasi, string namaPelanggan)> ParameterReservasi { get; set; }
+        public TransaksiReservasi TransaksiReservasi { get; set; }
+        public string NamaPelanggan { get; set; }
+    }
 }
 }

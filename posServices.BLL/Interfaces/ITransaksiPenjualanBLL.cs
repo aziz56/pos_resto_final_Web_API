@@ -10,8 +10,8 @@ namespace posServices.BLL.Interfaces
 {
     public interface ITransaksiPenjualanBLL
     {
-        Task<CreateReservasiDTO> InsertTransaksiReservasi(CreateReservasiDTO createReservasiDTO);
-        Task<ReservasiDTO> GetAllTransaksiReservasi();
+
+       
 
 
     }

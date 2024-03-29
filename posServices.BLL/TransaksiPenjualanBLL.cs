@@ -8,31 +8,51 @@ using posServices.Data;
 using posServices.Data.Interfaces;
 using AutoMapper;
 using posServices.BLL.DTOs;
+using posServices.Domain.Models;
 
 namespace posServices.BLL
 {
     public class TransaksiPenjualanBLL : ITransaksiPenjualanBLL
     {
         private readonly ITransaksiPenjualan _transaksiPenjualan;
-        private readonly IMapper _mapper;
-        public TransaksiPenjualanBLL(ITransaksiPenjualan transaksiPenjualan, IMapper mapper)
+        //private readonly IMapper _mapper;
+        public TransaksiPenjualanBLL(ITransaksiPenjualan transaksiPenjualan/*, IMapper mapper*/)
         {
             _transaksiPenjualan = transaksiPenjualan;
-            _mapper = mapper;
+            //_mapper = mapper;
        
             
         }
 
-        public async Task<ReservasiDTO> GetAllTransaksiReservasi()
+        public async Task InsertPenjualanWithInvoice(string namaPelanggan, List<(int IdMenu, int JumlahPesanan)> pesananList, int idMeja, decimal amount)
         {
-            var getAllReservasi = await _transaksiPenjualan.GetAllTransaksiPenjualan();
+            try
+            {
+                await _transaksiPenjualan.InsertPenjualanWithInvoice(namaPelanggan, pesananList, idMeja, amount);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in InsertPenjualanWithInvoice: " + ex.Message);
+            }
 
-            return (ReservasiDTO)getAllReservasi;
+        }
+        public async Task<IEnumerable<(string NamaMenu, int JumlahPesanan)>> GetTop5MenuByTransaction()
+        {
+            try
+            {
+                return await _transaksiPenjualan.GetTop5MenuByTransaction();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in GetTop5MenuByTransaction: " + ex.Message);
+            }
         }
 
-        public async Task<CreateReservasiDTO> InsertTransaksiReservasi(CreateReservasiDTO createReservasiDTO)
-        {
-            throw new NotImplementedException();
-        }
+
+
+
+
+
+
     }
 }
